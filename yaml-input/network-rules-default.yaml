@@ -1,0 +1,20 @@
+name: "DefaultNetworkRuleCollectionGroup"
+priority: 11000
+network_rule_collection:
+  name: "DefaultNetworkRuleCollection"
+  action: "Allow"
+  priority: 1000
+  ip_rules:
+    - name: "AllowInternal"
+      source_addresses: ["10.0.0.1"]
+      protocols: ["TCP","UDP"]
+      destination_ports: ["80", "1000-2000"]
+      destination_addresses: ["192.168.1.1", "192.168.1.2"]
+  
+  # FQDN rules requires DNS Proxy to be enabled in Azure Firewall
+  fqdn_rules:
+    - name: "AllowNTP"
+      source_addresses: ["10.0.0.1"]
+      protocols: ["TCP","UDP"]
+      destination_ports: ["123"]
+      destination_fqdns: ["time.windows.com"]

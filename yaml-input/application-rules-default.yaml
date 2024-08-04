@@ -1,0 +1,18 @@
+# HTTPS and HTTP only. For Non-HTTP/S, use network based FQDN rules
+name: "DefaultApplicationRuleCollectionGroup"
+priority: 10000
+application_rule_collection:
+  name: "DefaultApplicationRuleCollection"
+  action: "Allow"
+  priority: 1000
+  rules:
+    - name: "Allow-MSFT"
+      description: "Allow access to Microsoft.com"
+      protocols:
+        - type: "Https"
+          port: 443
+        - type: "Http"
+          port: 80
+      source_addresses: ["*"]
+      terminate_tls: false
+      destination_fqdns: ["*.microsoft.com"]
